@@ -61,15 +61,17 @@ public class StompChannelInterceptor implements ChannelInterceptor {
 
     /**
      * 허용 패턴
-     *   /user/queue/**        - 자신의 개인 큐 (에러 알림 포함)
-     *   /topic/test           - 테스트 브로드캐스트
-     *   /topic/room.{roomId}  - 방 토픽 (5단계에서 멤버십 검사 추가 예정)
+     *   /user/queue/**             - 자신의 개인 큐 (에러/알림/시그널링 포함)
+     *   /topic/test                - 테스트 브로드캐스트
+     *   /topic/room.{roomId}       - 방 이벤트
+     *   /topic/waiting.{masterId}  - 마스터 대기열 이벤트
      */
     private boolean isAllowedSubscription(String dest) {
         if (dest == null) return false;
         return dest.startsWith("/user/queue/")
                 || dest.equals("/topic/test")
-                || dest.startsWith("/topic/room.");
+                || dest.startsWith("/topic/room.")
+                || dest.startsWith("/topic/waiting.");
     }
 
     // ── SEND ──────────────────────────────────────────────────────────────────
