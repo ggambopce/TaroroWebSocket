@@ -26,11 +26,13 @@ public enum ErrorCode {
     // Room
     ROOM_NOT_FOUND(201, HttpStatus.OK, "존재하지 않는 상담방입니다."),
     ROOM_ACCESS_DENIED(201, HttpStatus.OK, "상담방 접근 권한이 없습니다."),
+    ROOM_INVALID_STATUS(201, HttpStatus.OK, "현재 상태에서 허용되지 않는 작업입니다."),
 
     // Message
     MESSAGE_INVALID(201, HttpStatus.OK, "메시지가 올바르지 않습니다."),
 
     // WaitingRoom
+    WAITING_NOT_FOUND(201, HttpStatus.OK, "대기 중인 항목이 없습니다."),
     WAITING_DUPLICATED(201, HttpStatus.OK, "이미 대기열에 등록되어 있습니다."),
 
     // Point

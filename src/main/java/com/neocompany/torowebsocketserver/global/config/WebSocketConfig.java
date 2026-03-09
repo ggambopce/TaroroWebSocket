@@ -1,9 +1,11 @@
 package com.neocompany.torowebsocketserver.global.config;
 
 import com.neocompany.torowebsocketserver.global.websocket.interceptor.PrincipalHandshakeHandler;
+import com.neocompany.torowebsocketserver.global.websocket.interceptor.StompChannelInterceptor;
 import com.neocompany.torowebsocketserver.global.websocket.interceptor.WebSocketHandshakeInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -16,6 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final WebSocketHandshakeInterceptor handshakeInterceptor;
     private final PrincipalHandshakeHandler handshakeHandler;
+    private final StompChannelInterceptor stompChannelInterceptor;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -38,5 +41,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/topic", "/queue");
         registry.setApplicationDestinationPrefixes("/app");
         registry.setUserDestinationPrefix("/user");
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(stompChannelInterceptor);
     }
 }
