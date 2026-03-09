@@ -35,4 +35,15 @@ public class ChatMessage {
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private Instant createdAt;
+
+    // ── 팩토리 메서드 ─────────────────────────────────────────────────────────
+
+    public static ChatMessage of(Long roomId, Long senderId, String content, MessageType messageType) {
+        ChatMessage m = new ChatMessage();
+        m.roomId = roomId;
+        m.senderId = senderId;
+        m.content = content;
+        m.messageType = messageType;
+        return m;
+    }
 }
